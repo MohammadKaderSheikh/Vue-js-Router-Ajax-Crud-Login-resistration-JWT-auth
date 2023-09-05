@@ -39,33 +39,66 @@ const submitForm = async () => {
 
 
 <template>
-  <Navbar/>
-<div class="row mt-5">
-    <div class="col-md-3"></div>
-    <div class="col-md-6">
-      <form class="rounded" style="background-color: green; padding: 20px;" @submit.prevent="submitForm">
-        <!-- Email input -->
-        <h1 class="text-center text-white">Insert Data</h1>
-        <div class="form-outline mb-4 bg-white rounded">
-          <input v-model="formData.name" type="text" id="form1Example1" class="form-control" />
-          <label class="form-label" for="form1Example1">Name</label>
+  <div>
+    <Navbar />
+    <div class="container mt-5">
+      <div class="row justify-content-center">
+        <div class="col-md-6">
+          <form class="rounded p-4" style="background-color: #f4f4f4;" @submit.prevent="submitForm">
+            <h1 class="text-center mb-4" style="color: #007bff;">Insert Data</h1>
+            <!-- Name input -->
+            <div class="mb-4">
+              <label for="form1Example1" class="form-label" style="color: #555;">Name</label>
+              <input v-model="formData.name" type="text" id="form1Example1" class="form-control" />
+            </div>
+            <!-- Email input -->
+            <div class="mb-4">
+              <label for="form1Example2" class="form-label" style="color: #555;">Email</label>
+              <input v-model="formData.email" type="email" id="form1Example2" class="form-control" />
+            </div>
+            <!-- Roll input -->
+            <div class="mb-4">
+              <label for="form1Example3" class="form-label" style="color: #555;">Roll</label>
+              <input v-model="formData.roll" type="text" id="form1Example3" class="form-control" />
+            </div>
+            <!-- Submit button -->
+            <button type="submit" class="btn btn-primary btn-block" style="background-color: #007bff;">Submit</button>
+          </form>
         </div>
-        <!-- Email input -->
-        <div class="form-outline mb-4 bg-white rounded">
-          <input v-model="formData.email" type="email" id="form1Example2" class="form-control" />
-          <label class="form-label" for="form1Example2">Email</label>
-        </div>
-        <div class="form-outline mb-4 bg-white rounded">
-          <input v-model="formData.roll" type="text" id="form1Example3" class="form-control" />
-          <label class="form-label" for="form1Example3">Roll</label>
-        </div>
-        <!-- Submit button -->
-        <button type="submit" class="btn btn-primary btn-block">Submit</button>
-      </form>
+      </div>
     </div>
-    <div class="col-md-3"></div>
-</div>
-   
-  
- 
+  </div>
 </template>
+
+<style>
+/* Custom styles for the form */
+.form-control {
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  padding: 10px;
+  font-size: 16px;
+  background-color: #fff;
+  transition: border-color 0.3s;
+}
+
+.form-label {
+  font-weight: bold;
+  font-size: 18px;
+  margin-bottom: 5px;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  border-color: #007bff;
+  color: #fff;
+  font-weight: bold;
+  font-size: 18px;
+  transition: background-color 0.3s;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+  border-color: #0056b3;
+}
+</style>
+

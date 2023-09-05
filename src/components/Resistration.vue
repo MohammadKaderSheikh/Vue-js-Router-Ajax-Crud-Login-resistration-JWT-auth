@@ -1,73 +1,80 @@
 <template>
   <div>
     <Navbar />
-    <div class="row mt-5">
-      <div class="col-md-3"></div>
-      <div class="col-md-6">
-        <form class="rounded" style="background-color: green; padding: 20px; " @submit.prevent="submitForm">
-          <!-- User Name input -->
-          <div class="form-outline mb-4 bg-white rounded" >
-            <input v-model="userData.name" type="text" id="form1Example1" class="form-control" />
-            <label class="form-label" for="form1Example1">User Name</label>
-          </div>
-          <!-- Email input -->
-          <div class="form-outline mb-4 bg-white rounded" >
-            <input v-model="userData.email" type="email" id="form1Example2" class="form-control" />
-            <label class="form-label" for="form1Example2">Email address</label>
-          </div>
-          <!-- Password input -->
-          <div class="form-outline mb-4 bg-white rounded">
-            <input v-model="userData.password" type="password" id="form1Example3" class="form-control" />
-            <label class="form-label" for="form1Example3">Password</label>
-          </div>
-          <div class="form-outline mb-4 bg-white rounded">
-            <input v-model="userData.confirm_password" type="password" id="form1Example4" class="form-control" />
-            <label class="form-label" for="form1Example4">Confirm Password </label>
-          </div>
-          <!-- Submit button -->
-          <button type="submit" class="btn btn-primary btn-block">Sign in</button>
-        </form>
+    <div class="container mt-5">
+      <div class="row justify-content-center">
+        <div class="col-md-6">
+          <form class="rounded p-4" style="background-color: #f5f5f5;" @submit.prevent="submitForm">
+            <!-- User Name input -->
+            <div class="mb-4">
+              <label for="form1Example1" class="form-label">User Name</label>
+              <input v-model="userData.name" type="text" id="form1Example1" class="form-control" />
+            </div>
+            <!-- Email input -->
+            <div class="mb-4">
+              <label for="form1Example2" class="form-label">Email address</label>
+              <input v-model="userData.email" type="email" id="form1Example2" class="form-control" />
+            </div>
+            <!-- Password input -->
+            <div class="mb-4">
+              <label for="form1Example3" class="form-label">Password</label>
+              <input v-model="userData.password" type="password" id="form1Example3" class="form-control" />
+            </div>
+            <!-- Confirm Password input -->
+            <div class="mb-4">
+              <label for="form1Example4" class="form-label">Confirm Password</label>
+              <input v-model="userData.password_confirmation" type="password" id="form1Example4" class="form-control" />
+            </div>
+            <!-- Submit button -->
+            <button type="submit" class="btn btn-primary btn-block">Register</button>
+          </form>
+        </div>
       </div>
-      <div class="col-md-3"></div>
     </div>
   </div>
 </template>
 
 <script setup>
 import Navbar from './Navbar.vue';
-
+import axios from 'axios';
+import { useRouter, useRoute } from 'vue-router';
+const router = useRouter();
+  const route = useRoute();
 const userData = {
   name: '',
   email: '',
   password: '',
-  confirm_password: ''
+  password_confirmation: ''
 };
 
 const submitForm = async () => {
-  const formData = new FormData();
-  formData.append('name', userData.name);
-  formData.append('email', userData.email);
-  formData.append('password', userData.password);
-  formData.append('confirm_password', userData.confirm_password);
-
   try {
     const response = await fetch('http://127.0.0.1:8000/api/register', {
       method: 'POST',
-      body: formData
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(userData),
     });
 
-    if (response.ok) {
-      const data = await response.json();
-      const token = data.token;
-
-      // Store the token in local storage
-      localStorage.setItem('token', token);
-      console.log('Token stored in local storage:', token);
-    } else {
-      console.log('Registration failed:', response.statusText);
+    if (!response.ok) {
+      throw new Error('Registration failed');
     }
+
+    // Assuming your API returns a token upon successful registration
+    const responseData = await response.json();
+    const token = responseData.token;
+
+    // Store the token in local storage or Vuex store
+    localStorage.setItem('authToken', token);
+    console.log(responseData);
+
+    // Redirect to a different page or perform other actions after successful registration
+    // For example, you can use Vue Router to navigate to a new page:
+     router.push('/login');
   } catch (error) {
-    console.log('An error occurred:', error);
+    // Handle registration error, display error message, etc.
+    console.log('Registration error:', error);
   }
 };
 </script>

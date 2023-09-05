@@ -33,19 +33,28 @@
         <!-- Left links -->
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-            <router-link to="/" class="nav-link">Dashboard</router-link >
+            <router-link to="/" class="nav-link"> Dashboard </router-link >
             </li>
             <li class="nav-item">
-            <router-link to="/about" class="nav-link" href="#">About</router-link >
+            <router-link to="/home" class="nav-link"> Home </router-link >
             </li>
             <li class="nav-item">
-            <router-link to="/login" class="nav-link" href="#">login</router-link >
+            <router-link to="/about" class="nav-link" href="#"> About </router-link >
             </li>
             <li class="nav-item">
-            <router-link to="/resistration" class="nav-link" href="#">Resistration</router-link >
+            <router-link to="/login" class="nav-link" href="#"> login </router-link >
             </li>
             <li class="nav-item">
-            <router-link to="/insert" class="nav-link" href="#">Add Student</router-link >
+            <router-link to="/resistration" class="nav-link" href="#"> Resistration </router-link >
+            </li>
+            <li class="nav-item">
+              <router-link to="/insert" class="nav-link" href="#"> Add Student </router-link >
+            </li>
+            <li class="nav-item">
+              <router-link to="/product" class="nav-link" href="#"> Product </router-link >
+            </li>
+            <li class="nav-item">
+              <router-link to="/addProduct" class="nav-link" href="#"> Add Product </router-link >
             </li>
         </ul>
         <!-- Left links -->
